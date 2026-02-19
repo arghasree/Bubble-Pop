@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pop that 🫧</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="title">
+      <h1>Pop that 🫧</h1>
+      <p>Projects → buckets. Add balls with name, color, and duration (h/m/s).</p>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Projects" style="display:flex; justify-content:center;">
+    <div id="tabsRow" class="tabsRow"></div>
+    <div class="actions" style="position:absolute; right:20px;">
+      <button id="newProjectBtn" class="secondary">+ Project</button>
+      <button id="addBallBtn">+ Add ball</button>
+      <button id="deleteProjectBtn" class="danger">Delete project</button>
+    </div>
+  </nav>
+
+  <main class="layout">
+    <section class="bucket-wrap">
+      <div class="bucketHeader">
+        <div>
+          <div class="bucketTitle" id="projectTitle">—</div>
+          <div class="bucketSubtitle" id="projectSubtitle">—</div>
+        </div>
+        <div class="bucketMeta" id="projectMeta">—</div>
+      </div>
+
+      <div id="bucket" class="bucket" aria-label="Bucket"></div>
+    </section>
+
+    <!-- Selected Bubble Panel -->
+    <aside class="selected-panel" id="selectedPanel" aria-label="Control panel">
+      <div class="selected-toggle" id="selectedToggle">⚙️</div>
+      <div class="selected-content" id="selectedContent">
+        <h3>Selected Bubble 🫧</h3>
+
+        <div id="noSelection" class="muted">No bubble selected.</div>
+
+        <div id="selectionUI" class="hidden">
+          <div class="row">
+            <div><span class="label">Name</span> <span id="ballName">—</span></div>
+            <div><span class="label">ID</span> <span id="ballId">—</span></div>
+          </div>
+
+          <div class="row">
+            <div><span class="label">Total</span> <span id="ballTotal">—</span></div>
+            <div><span class="label">Remaining</span> <span id="ballRemaining">—</span></div>
+          </div>
+
+          <div class="row">
+            <div><span class="label">State</span> <span id="ballState">idle</span></div>
+            <div><span class="label">Color</span> <span id="ballColorDot" class="colorDot"></span></div>
+          </div>
+
+          <hr />
+
+          <div class="row">
+            <button id="toggleBtn">Start</button>
+            <button id="resetBtn" class="secondary">Reset</button>
+          </div>
+
+          <div class="row">
+            <button id="renameBtn" class="secondary">Rename</button>
+            <button id="recolorBtn" class="secondary">Recolor</button>
+          </div>
+
+          <hr />
+
+          <div class="row">
+            <button id="popBtn" class="danger secondary">Pop now</button>
+            <button id="deleteBtn" class="danger">Delete</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Recently Popped Panel -->
+    <aside class="history-panel" id="historyPanel" aria-label="Recent pops">
+      <div class="history-toggle" id="historyToggle">📜</div>
+      <div class="history-content" id="historyContent">
+        <h3>Recently Popped 🎉</h3>
+        <div id="historyList" class="history-list"></div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Add Ball Modal -->
+  <div id="modalBackdrop" class="modalBackdrop hidden"></div>
+  <div id="addBallModal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Add ball">
+    <div class="modalHeader">
+      <div class="modalTitle">Add ball</div>
+      <button id="closeModalBtn" class="secondary">Close</button>
+    </div>
+
+    <div class="modalBody">
+      <label class="field">
+        Ball name
+        <input id="newBallName" type="text" placeholder="e.g. Reading (Paper X)" maxlength="40" />
+      </label>
+
+      <div class="field" style="display:none;">
+        Color
+        <div class="palette" id="colorPalette"></div>
+      </div>
+
+      <div class="field">
+        Duration (h / m / s)
+        <div class="hms">
+          <input id="hIn" type="number" min="0" step="1" placeholder="h" />
+          <input id="mIn" type="number" min="0" max="59" step="1" placeholder="m" />
+          <input id="sIn" type="number" min="0" max="59" step="1" placeholder="s" />
+        </div>
+        <div class="muted tiny">Size is derived from duration. Longer = bigger.</div>
+      </div>
+    </div>
+
+    <div class="modalFooter">
+      <button id="createBallBtn">Create ball</button>
+    </div>
+  </div>
+
+  <!-- New Project Modal -->
+  <div id="projectModal" class="modal hidden" role="dialog" aria-modal="true" aria-label="New project">
+    <div class="modalHeader">
+      <div class="modalTitle">New project</div>
+      <button id="closeProjectModalBtn" class="secondary">Close</button>
+    </div>
+    <div class="modalBody">
+      <label class="field">
+        Project name
+        <input id="newProjectName" type="text" placeholder="e.g. Work" maxlength="30" />
+      </label>
+    </div>
+    <div class="modalFooter">
+      <button id="createProjectBtn">Create project</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
