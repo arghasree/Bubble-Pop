@@ -288,9 +288,9 @@ function deleteActiveProject() {
   // Remove project from array
   projects = projects.filter(pr => pr.id !== p.id);
 
-  // If no projects remain, create a default one
+  // If no projects remain, leave empty state
   if (projects.length === 0) {
-    createProject("Default");
+    activeProjectId = null;
   } else {
     setActiveProject(projects[0].id);
   }
@@ -522,7 +522,13 @@ function renderActiveProjectMeta() {
 function renderActiveProject() {
   const p = getActiveProject();
   bucket.innerHTML = "";
-  if (!p) return;
+  if (!p) {
+    projectTitle.textContent = "No project selected";
+    projectSubtitle.textContent = "Create a project to begin.";
+    projectMeta.textContent = "";
+    setSelectedBall(null);
+    return;
+  }
 
   projectTitle.textContent = p.name;
   renderActiveProjectMeta();
@@ -793,11 +799,22 @@ function renderHistory() {
 (function init() {
   const ok = load();
   if (!ok) {
-    createProject("Work");
-    createProject("Food");
-    // setActiveProject called by createProject; make Work active
-    setActiveProject(projects[0].id);
+    // First load: start with no projects by default
+    projects = [];
+    activeProjectId = null;
   } else {
+    // Cleanup legacy auto-created defaults (only if both are empty)
+    const legacyDefaults =
+      projects.length === 2 &&
+      projects.some(p => p.name === "Work") &&
+      projects.some(p => p.name === "Food") &&
+      projects.every(p => p.balls.size === 0);
+
+    if (legacyDefaults) {
+      projects = [];
+      activeProjectId = null;
+    }
+
     renderTabs();
     renderActiveProject();
   }
