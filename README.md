@@ -2,4 +2,4 @@
 >> Add a Project \
 >> Under each project add goals with time bubbles \
 >> Start a bubble \
->> After specified time, it will pop \
+>> After specified time, it will pop 
